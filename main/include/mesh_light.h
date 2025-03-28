@@ -15,13 +15,9 @@
 /*******************************************************
  *                Constants
  *******************************************************/
-#define MESH_LIGHT_RED       (0xff)
-#define MESH_LIGHT_GREEN     (0xfe)
-#define MESH_LIGHT_BLUE      (0xfd)
-#define MESH_LIGHT_YELLOW    (0xfc)
-#define MESH_LIGHT_PINK      (0xfb)
-#define MESH_LIGHT_INIT      (0xfa)
-#define MESH_LIGHT_WARNING   (0xf9)
+#define MESH_LIGHT_ON       (0x01)
+#define MESH_LIGHT_OFF     (0x00)
+
 
 #define  MESH_TOKEN_ID       (0x0)
 #define  MESH_TOKEN_VALUE    (0xbeef)

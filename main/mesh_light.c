@@ -68,60 +68,31 @@ esp_err_t mesh_light_init(void)
     ledc_channel_config(&ledc_channel);
     ledc_fade_func_install(0);
 
-    mesh_light_set(MESH_LIGHT_INIT);
+    mesh_light_set(MESH_LIGHT_OFF);
     return ESP_OK;
 }
 
 esp_err_t mesh_light_set(int color)
 {
     switch (color) {
-    case MESH_LIGHT_RED:
-        /* Red */
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 3000);
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1, 0);
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_2, 0);
-        break;
-    case MESH_LIGHT_GREEN:
+    case MESH_LIGHT_OFF:
         /* Green */
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 0);
+        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 3000);
         ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1, 3000);
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_2, 0);
+        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_2, 3000);
         break;
-    case MESH_LIGHT_BLUE:
+    case MESH_LIGHT_ON:
+        // Small modification here to make it work (not RGB led)
         /* Blue */
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 0);
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1, 0);
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_2, 3000);
-        break;
-    case MESH_LIGHT_YELLOW:
-        /* Yellow */
         ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 3000);
         ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1, 3000);
         ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_2, 0);
-        break;
-    case MESH_LIGHT_PINK:
-        /* Pink */
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 3000);
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1, 0);
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_2, 3000);
-        break;
-    case MESH_LIGHT_INIT:
-        /* can't say */
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 0);
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1, 3000);
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_2, 3000);
-        break;
-    case MESH_LIGHT_WARNING:
-        /* warning */
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 3000);
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1, 3000);
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_2, 3000);
         break;
     default:
         /* off */
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 0);
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1, 0);
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_2, 0);
+        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 3000);
+        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1, 3000);
+        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_2, 3000);
     }
 
     ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
@@ -133,33 +104,33 @@ esp_err_t mesh_light_set(int color)
 
 void mesh_connected_indicator(int layer)
 {
-    switch (layer) {
-    case 1:
-        mesh_light_set(MESH_LIGHT_PINK);
-        break;
-    case 2:
-        mesh_light_set(MESH_LIGHT_YELLOW);
-        break;
-    case 3:
-        mesh_light_set(MESH_LIGHT_RED);
-        break;
-    case 4:
-        mesh_light_set(MESH_LIGHT_BLUE);
-        break;
-    case 5:
-        mesh_light_set(MESH_LIGHT_GREEN);
-        break;
-    case 6:
-        mesh_light_set(MESH_LIGHT_WARNING);
-        break;
-    default:
-        mesh_light_set(0);
-    }
+    // switch (layer) {
+    // case 1:
+    //     mesh_light_set(MESH_LIGHT_PINK);
+    //     break;
+    // case 2:
+    //     mesh_light_set(MESH_LIGHT_YELLOW);
+    //     break;
+    // case 3:
+    //     mesh_light_set(MESH_LIGHT_RED);
+    //     break;
+    // case 4:
+    //     mesh_light_set(MESH_LIGHT_BLUE);
+    //     break;
+    // case 5:
+    //     mesh_light_set(MESH_LIGHT_GREEN);
+    //     break;
+    // case 6:
+    //     mesh_light_set(MESH_LIGHT_WARNING);
+    //     break;
+    // default:
+    //     mesh_light_set(0);
+    // }
 }
 
 void mesh_disconnected_indicator(void)
 {
-    mesh_light_set(MESH_LIGHT_WARNING);
+    //mesh_light_set(MESH_LIGHT_WARNING);
 }
 
 esp_err_t mesh_light_process(mesh_addr_t *from, uint8_t *buf, uint16_t len)

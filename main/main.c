@@ -42,8 +42,10 @@ void app_main(void) {
     // The ESP_ERROR_CHECK() works similarly to an assert: it checks the esp_err_t returned and
     // if it is not equal to ESP_OK it aborts the execution (and an error message is printed)
 
-    //This line will initialize the led handler TODO: rendere una cosa personalizzata che non ho l'rgb nel led
+    //This line will initialize the led handler
     ESP_ERROR_CHECK(mesh_light_init());
+    //Turning on the led
+    ESP_ERROR_CHECK(mesh_light_set(MESH_LIGHT_ON));
 
     //reference: https://docs.espressif.com/projects/esp-idf/en/v4.3.2/esp32/api-reference/storage/nvs_flash.html
     // NVS = non volatile storage. NVS is designed to store key:pair values in a partition of the flash memory throught the esp_partition API.
