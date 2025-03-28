@@ -77,9 +77,9 @@ esp_err_t mesh_light_set(int color)
     switch (color) {
     case MESH_LIGHT_OFF:
         /* Green */
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 3000);
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1, 3000);
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_2, 3000);
+        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, 0);
+        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_1, 0);
+        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_2, 0);
         break;
     case MESH_LIGHT_ON:
         // Small modification here to make it work (not RGB led)
